@@ -1,0 +1,8 @@
+.navdiv{
+    background-color: rgb(95, 105, 105);
+    display: flex;
+    color: white;
+    text-align: center;
+    gap:40px; 
+    padding: 0px 30px 0px;
+}
