@@ -6,8 +6,6 @@ export const Allproducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedType, setSelectedType] = useState('All');
 
-
-
   useEffect(() => {
     // Fetch data from the API
     fetch('http://localhost:3005/allproducts')
@@ -59,12 +57,11 @@ export const Allproducts = () => {
         >
           <option value="All">All</option>
           <option value="Electronics">Electronics</option>
-         <option value="Clothing">Clothing</option>
+          <option value="Clothing">Clothing</option>
           <option value="Books">Books</option>
           <option value="Toys">Toys</option>
           <option value="Furniture">Furniture</option>   
           <option value="Other">Other</option>          
-
 
            {/* Add more options based on your product types */}
         </select>
@@ -74,7 +71,7 @@ export const Allproducts = () => {
         <div key={product._id} className="product-card">
           <img src={product.productimage} alt={product.productname} className="product-image" />
           <div className="product-details">
-            <h3 className="product-name">{product.productname}</h3>
+            <p className="product-name">Name: {product.productname}</p>
             <p className="product-info">Type: {product.producttype}</p>
             <p className="product-info">Price: Rs.{product.productprice}</p>
             <p className="product-info">Discount: {product.productdiscount}%</p>
@@ -87,7 +84,6 @@ export const Allproducts = () => {
       ))}
     </div>
     </>
-
   );
 };
 
