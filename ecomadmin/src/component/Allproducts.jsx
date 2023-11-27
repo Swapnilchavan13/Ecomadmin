@@ -14,7 +14,6 @@ export const Allproducts = () => {
       .catch(error => console.error('Error fetching products:', error));
   }, []);
 
-
   useEffect(() => {
     // Apply filtering when the selected type changes
     if (selectedType === 'All') {
@@ -23,8 +22,6 @@ export const Allproducts = () => {
       setFilteredProducts(products.filter(product => product.producttype === selectedType));
     }
   }, [selectedType, products]);
-
-
 
   const handleDelete = async (productId) => {
     try {
@@ -47,7 +44,6 @@ export const Allproducts = () => {
   return (
     <>
       <h2 className="product-list-title">All Products</h2>
-      
       <div className="filter-container">
         <label htmlFor="productTypeFilter">Filter by Type:</label>
         <select
@@ -62,7 +58,6 @@ export const Allproducts = () => {
           <option value="Toys">Toys</option>
           <option value="Furniture">Furniture</option>   
           <option value="Other">Other</option>          
-
            {/* Add more options based on your product types */}
         </select>
       </div>
@@ -86,4 +81,3 @@ export const Allproducts = () => {
     </>
   );
 };
-
