@@ -10,6 +10,6 @@
     display:grid;
     grid-template-columns: repeat(6, 1fr);
     padding: 10px;
-    background-color: bisque;
+    background-color: rgb(227, 228, 227);
     gap: 10px;
 }
