@@ -77,6 +77,7 @@ export const Adminsidepage = () => {
           Product Name:
           <input
             className="form-input"
+            placeholder="Enter Product Name"
             type="text"
             name="productname"
             value={productData.productname}
@@ -88,6 +89,7 @@ export const Adminsidepage = () => {
           Product Image:
           <input
             className="form-input"
+            placeholder="Enter Product Image"
             type="text"
             name="productimage"
             value={productData.productimage}
@@ -99,6 +101,7 @@ export const Adminsidepage = () => {
           Product Price:
           <input
             className="form-input"
+            placeholder="Enter Product Price"
             type="text"
             name="productprice"
             value={productData.productprice}
@@ -110,6 +113,7 @@ export const Adminsidepage = () => {
           Product Discount:
           <input
             className="form-input"
+            placeholder="Enter Product Discount"
             type="text"
             name="productdiscount"
             value={productData.productdiscount}
@@ -121,13 +125,13 @@ export const Adminsidepage = () => {
           Product Quantity:
           <input
             className="form-input"
+            placeholder="Enter Product Quantity"
             type="text"
             name="productquantity"
             value={productData.productquantity}
             onChange={handleChange}
           />
         </label>
-
         <button className="form-button" type="submit">Add Product</button>
       </form>
     </div>
