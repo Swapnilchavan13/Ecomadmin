@@ -14,6 +14,9 @@ export const Navbar = () => {
       <Link to={'/orders'}>
         <h3>Orders</h3>
       </Link>
+      <Link to={'/users'}>
+        <h3>All Users</h3>
+      </Link>
     </div>
   )
 }

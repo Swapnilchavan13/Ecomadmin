@@ -1,0 +1,15 @@
+.allusers{
+    border: 1px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    width: 200px;
+    background-color: rgb(245, 248, 247);
+}
+
+.userdiv{
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 10px;
+    background-color: bisque;
+    gap: 10px;
+}
