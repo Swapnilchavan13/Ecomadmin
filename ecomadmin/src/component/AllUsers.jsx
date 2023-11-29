@@ -23,8 +23,7 @@ export const AllUsers = () => {
             <h4>Address: {el.useraddress}</h4>
         </div>
         )}
-        </div>
-                
+        </div>       
     </div>
   )
 }
