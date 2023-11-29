@@ -17,4 +17,8 @@
   .orders-table th {
     background-color: #f2f2f2;
   }
+  .pdata{
+    text-align: left;
+    border-bottom: 1px solid grey;
+  }
   

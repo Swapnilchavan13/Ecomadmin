@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/order.css';
 
 export const Order = () => {
   const [orders, setOrders] = useState([]);
@@ -8,13 +9,16 @@ export const Order = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        // Fetch orders data
         const ordersResponse = await fetch('http://localhost:3005/allorders');
         const ordersData = await ordersResponse.json();
         setOrders(ordersData);
 
+        // Fetch users data
         const usersResponse = await fetch('http://localhost:3005/allusers');
         const usersData = await usersResponse.json();
         setUsers(usersData);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -53,9 +57,9 @@ export const Order = () => {
   };
 
   return (
-    <div>
+    <div className="orders-container">
       <h3>Orders List</h3>
-      <table border="1">
+      <table className="orders-table">
         <thead>
           <tr>
             <th>Order ID</th>
@@ -71,9 +75,7 @@ export const Order = () => {
           {orders.map((order) => (
             <tr
               key={order._id}
-              style={{
-                backgroundColor: deliveredStatus[order._id] ? 'lightgreen' : 'white',
-              }}
+              className={`order-row ${deliveredStatus[order._id] ? 'delivered' : ''}`}
             >
               <td>{order._id}</td>
               <td>{getUsernameById(order.userId)}</td>
@@ -83,16 +85,20 @@ export const Order = () => {
               <td>
                 <ul>
                   {order.products.map((product) => (
-                    <li key={product._id}>
+                    <div className='pdata' key={product._id}>
                       <strong>Product ID:</strong> {product._id},{' '}
-                      <strong>Quantity:</strong> {product.quantity}, <strong>Price:</strong> {product.price}
-                    </li>
+                      <br />
+                      <strong>Product Name:</strong> {product.productName},{' '}
+                      <br />
+                      <strong>Quantity:</strong> {product.quantity},
+                      <br />
+                      <strong>Price:</strong> {product.price}
+                    </div>
                   ))}
                 </ul>
               </td>
               <td>
-                <button onClick={() => handleDelivered(order._id)}>Delivered</button>
-                <br />
+                {/* <button onClick={() => handleDelivered(order._id)}>Delivered</button> */}
                 <button onClick={() => handleDelete(order._id)}>Delete</button>
               </td>
             </tr>
