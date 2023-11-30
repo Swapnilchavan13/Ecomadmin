@@ -78,7 +78,7 @@ export const Order = () => {
           </tr>
         </thead>
         <tbody>
-        {filteredOrders.map((order) => (
+          {filteredOrders.map((order) => (
             <tr
               key={order._id}
             >
@@ -98,6 +98,9 @@ export const Order = () => {
                       <strong>Quantity:</strong> {product.quantity},
                       <br />
                       <strong>Price:</strong> {product.price}
+                      <br />
+                      <br />
+                      <img width="50px" src={product.productImage} alt="" />
                     </div>
                   ))}
                 </ul>
