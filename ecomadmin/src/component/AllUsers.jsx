@@ -11,7 +11,6 @@ export const AllUsers = () => {
         .catch(error => console.error('Error Fetching User Data', error))
     }, [])
 
-    // console.log(userdata)
   return (
     <div>
         <h1>All Users</h1>
