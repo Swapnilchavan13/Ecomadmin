@@ -4,7 +4,7 @@ import '../styles/order.css';
 export const Order = () => {
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
-  const [deliveredStatus, setDeliveredStatus] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -33,14 +33,6 @@ export const Order = () => {
     return user ? user.username : 'Unknown User';
   };
 
-  // Function to handle delivered status
-  const handleDelivered = (orderId) => {
-    setDeliveredStatus((prevStatus) => ({
-      ...prevStatus,
-      [orderId]: true, // Mark the order as delivered
-    }));
-  };
-
   // Function to delete an order
   const handleDelete = async (orderId) => {
     try {
@@ -56,9 +48,23 @@ export const Order = () => {
     }
   };
 
+  // Filter orders based on search term
+  const filteredOrders = orders.filter((order) =>
+    getUsernameById(order.userId).toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="orders-container">
       <h3>Orders List</h3>
+      <div>
+        <label>Search by Username: </label>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <table className="orders-table">
         <thead>
           <tr>
@@ -72,10 +78,9 @@ export const Order = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+        {filteredOrders.map((order) => (
             <tr
               key={order._id}
-              className={`order-row ${deliveredStatus[order._id] ? 'delivered' : ''}`}
             >
               <td>{order._id}</td>
               <td>{getUsernameById(order.userId)}</td>
@@ -98,7 +103,6 @@ export const Order = () => {
                 </ul>
               </td>
               <td>
-                {/* <button onClick={() => handleDelivered(order._id)}>Delivered</button> */}
                 <button onClick={() => handleDelete(order._id)}>Delete</button>
               </td>
             </tr>
