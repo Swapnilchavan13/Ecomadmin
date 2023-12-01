@@ -69,6 +69,7 @@ export const Order = () => {
         <thead>
           <tr>
             <th>Order ID</th>
+            <th>Date</th>
             <th>User Name</th>
             <th>Address</th>
             <th>Payment Method</th>
@@ -78,11 +79,10 @@ export const Order = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredOrders.map((order) => (
-            <tr
-              key={order._id}
-            >
+        {filteredOrders.slice().reverse().map((order) => (
+            <tr key={order._id}>
               <td>{order._id}</td>
+              <td>{order.orderdate}</td>
               <td>{getUsernameById(order.userId)}</td>
               <td>{order.address}</td>
               <td>{order.paymentMethod}</td>
