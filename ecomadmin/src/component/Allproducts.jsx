@@ -56,28 +56,28 @@ export const Allproducts = () => {
           <option value="Clothing">Clothing</option>
           <option value="Books">Books</option>
           <option value="Toys">Toys</option>
-          <option value="Furniture">Furniture</option>   
-          <option value="Other">Other</option>          
-           {/* Add more options based on your product types */}
+          <option value="Furniture">Furniture</option>
+          <option value="Other">Other</option>
+          {/* Add more options based on your product types */}
         </select>
       </div>
-    <div className="product-list-container">
-      {filteredProducts.map(product => (
-        <div key={product._id} className="product-card">
-          <img src={product.productimage} alt={product.productname} className="product-image" />
-          <div className="product-details">
-            <p className="product-name">Name: {product.productname}</p>
-            <p className="product-info">Type: {product.producttype}</p>
-            <p className="product-info">Price: Rs.{product.productprice}</p>
-            <p className="product-info">Discount: {product.productdiscount}%</p>
-            <p className="product-info">Quantity: {product.productquantity || 'N/A'}</p>
-            <button className="delete-button" onClick={() => handleDelete(product._id)}>
-              Delete
-            </button>
+      <div className="product-list-container">
+        {filteredProducts.map(product => (
+          <div key={product._id} className="product-card">
+            <img src={product.productimage} alt={product.productname} className="product-image" />
+            <div className="product-details">
+              <p className="product-name">Name: {product.productname}</p>
+              <p className="product-info">Type: {product.producttype}</p>
+              <p className="product-info">Price: Rs.{product.productprice}</p>
+              <p className="product-info">Discount: {product.productdiscount}%</p>
+              <p className="product-info">Quantity: {product.productquantity || 'N/A'}</p>
+              <button className="delete-button" onClick={() => handleDelete(product._id)}>
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </>
   );
 };

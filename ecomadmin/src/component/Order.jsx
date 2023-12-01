@@ -52,42 +52,42 @@ export const Order = () => {
   const filteredOrders = orders.filter((order) =>
     getUsernameById(order.userId).toLowerCase().includes(searchTerm.toLowerCase())
   );
- 
 
-// Function to update order status
-const handleStatusChange = async (orderId) => {
-  try {
-    // Fetch the current order to get its existing status
-    const response = await fetch(`http://localhost:3005/allorders/${orderId}`);
-    const existingOrder = await response.json();
 
-    // Toggle the status (true to false or false to true)
-    const newStatus = !existingOrder.status;
+  // Function to update order status
+  const handleStatusChange = async (orderId) => {
+    try {
+      // Fetch the current order to get its existing status
+      const response = await fetch(`http://localhost:3005/allorders/${orderId}`);
+      const existingOrder = await response.json();
 
-    console.log(newStatus);
+      // Toggle the status (true to false or false to true)
+      const newStatus = !existingOrder.status;
 
-    // Make a PATCH request to your API endpoint for updating order status
-    await fetch(`http://localhost:3005/updateorderstatus/${orderId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ status: newStatus }),
-    });
+      console.log(newStatus);
 
-    // Update the local state to reflect the updated status
-    setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order._id === orderId ? { ...order, status: newStatus } : order
-      )
-    );
+      // Make a PATCH request to your API endpoint for updating order status
+      await fetch(`http://localhost:3005/updateorderstatus/${orderId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
 
-  } catch (error) {
-    console.error('Error updating order status:', error);
-  }
-};
+      // Update the local state to reflect the updated status
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order._id === orderId ? { ...order, status: newStatus } : order
+        )
+      );
 
-   
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  };
+
+
   return (
     <div className="orders-container">
       <h3>Orders List</h3>
@@ -114,7 +114,7 @@ const handleStatusChange = async (orderId) => {
           </tr>
         </thead>
         <tbody>
-        {filteredOrders.slice().reverse().map((order) => (
+          {filteredOrders.slice().reverse().map((order) => (
             <tr key={order._id} className={`order-row-${order.status ? 'true' : 'false'}`}
             >
               <td>{order._id}</td>

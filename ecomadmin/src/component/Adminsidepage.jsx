@@ -38,14 +38,14 @@ export const Adminsidepage = () => {
         // Optionally, you can redirect or update state here
 
         setProductData({
-            producttype: '',
-            productname: '',
-            productimage: '',
-            productprice: '',
-            productdiscount: '',
-            productquantity: '',
-          });
-  
+          producttype: '',
+          productname: '',
+          productimage: '',
+          productprice: '',
+          productdiscount: '',
+          productquantity: '',
+        });
+
       } else {
         console.error('Failed to add product');
       }
