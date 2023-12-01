@@ -9,7 +9,7 @@
   }
   
   .orders-table th, .orders-table td {
-    border: 1px solid #ddd;
+    border: 1px solid #999999;
     padding: 8px;
     text-align: left;
   }
@@ -19,6 +19,14 @@
   }
   .pdata{
     text-align: left;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgb(8, 8, 8);
   }
   
+  /* Add these styles to your existing CSS file */
+.order-row-true {
+  background-color: #d4edda; /* Green background for true status */
+}
+
+.order-row-false {
+  background-color: #fff3cd; /* Yellow background for false status */
+}

@@ -52,7 +52,42 @@ export const Order = () => {
   const filteredOrders = orders.filter((order) =>
     getUsernameById(order.userId).toLowerCase().includes(searchTerm.toLowerCase())
   );
+ 
 
+// Function to update order status
+const handleStatusChange = async (orderId) => {
+  try {
+    // Fetch the current order to get its existing status
+    const response = await fetch(`http://localhost:3005/allorders/${orderId}`);
+    const existingOrder = await response.json();
+
+    // Toggle the status (true to false or false to true)
+    const newStatus = !existingOrder.status;
+
+    console.log(newStatus);
+
+    // Make a PATCH request to your API endpoint for updating order status
+    await fetch(`http://localhost:3005/updateorderstatus/${orderId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: newStatus }),
+    });
+
+    // Update the local state to reflect the updated status
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+
+  } catch (error) {
+    console.error('Error updating order status:', error);
+  }
+};
+
+   
   return (
     <div className="orders-container">
       <h3>Orders List</h3>
@@ -80,7 +115,8 @@ export const Order = () => {
         </thead>
         <tbody>
         {filteredOrders.slice().reverse().map((order) => (
-            <tr key={order._id}>
+            <tr key={order._id} className={`order-row-${order.status ? 'true' : 'false'}`}
+            >
               <td>{order._id}</td>
               <td>{order.orderdate}</td>
               <td>{getUsernameById(order.userId)}</td>
@@ -107,6 +143,7 @@ export const Order = () => {
               </td>
               <td>
                 <button onClick={() => handleDelete(order._id)}>Delete</button>
+                <button onClick={() => handleStatusChange(order._id)}>Delivered</button>
               </td>
             </tr>
           ))}
