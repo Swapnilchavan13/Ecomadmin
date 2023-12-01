@@ -69,7 +69,7 @@ export const Order = () => {
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Date</th>
+            <th>Date and Time</th>
             <th>User Name</th>
             <th>Address</th>
             <th>Payment Method</th>
