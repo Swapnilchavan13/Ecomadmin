@@ -64,8 +64,6 @@ export const Order = () => {
       // Toggle the status (true to false or false to true)
       const newStatus = !existingOrder.status;
 
-      console.log(newStatus);
-
       // Make a PATCH request to your API endpoint for updating order status
       await fetch(`http://localhost:3005/updateorderstatus/${orderId}`, {
         method: 'PATCH',
@@ -86,7 +84,6 @@ export const Order = () => {
       console.error('Error updating order status:', error);
     }
   };
-
 
   return (
     <div className="orders-container">
