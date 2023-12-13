@@ -8,7 +8,7 @@ export const Allproducts = () => {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch('http://localhost:3005/allproducts')
+    fetch('http://62.72.59.146:3008/allproducts')
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching products:', error));
@@ -25,7 +25,7 @@ export const Allproducts = () => {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:3005/deleteproduct/${productId}`, {
+      const response = await fetch(`http://62.72.59.146:3008/deleteproduct/${productId}`, {
         method: 'DELETE',
       });
 
