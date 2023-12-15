@@ -1,0 +1,34 @@
+/* Allmerchants.css */
+.all-merchants-container {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .merchant-details {
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    padding: 15px;
+  }
+  
+  .merchant-details h2 {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .merchant-details p {
+    margin: 8px 0;
+  }
+  
+  .delete-button {
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #ff7875;
+  }
+  

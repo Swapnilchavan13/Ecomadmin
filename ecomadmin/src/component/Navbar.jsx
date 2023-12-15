@@ -17,6 +17,9 @@ export const Navbar = () => {
       <Link to={'/users'}>
         <h3>All Users</h3>
       </Link>
+      <Link to={'/merchant'}>
+        <h3>All Merchants</h3>
+      </Link>
     </div>
   )
 }

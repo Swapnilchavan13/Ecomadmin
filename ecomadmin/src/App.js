@@ -5,6 +5,7 @@ import { Allproducts } from './component/Allproducts';
 import { Navbar } from './component/Navbar';
 import { Order } from './component/Order';
 import { AllUsers } from './component/AllUsers';
+import { Allmerchants } from './component/Allmerchants';
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Route path="admin" element={<Adminsidepage />} />
         <Route path="orders" element={<Order />} />
         <Route path="users" element={<AllUsers />} />
+        <Route path="merchant" element={<Allmerchants />} />
+
       </Routes>
     </BrowserRouter>
     </div>
