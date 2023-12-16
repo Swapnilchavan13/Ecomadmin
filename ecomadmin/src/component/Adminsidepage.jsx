@@ -3,6 +3,7 @@ import '../styles/adminsidepage.css';
 
 export const Adminsidepage = () => {
   const [productData, setProductData] = useState({
+    mercahntid: 'adminupload',
     producttype: '',
     productname: '',
     productimage: '',
@@ -25,7 +26,7 @@ export const Adminsidepage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://62.72.59.146:3008/addproduct', {
+      const response = await fetch('http://localhost:3008/addproduct', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,6 +39,7 @@ export const Adminsidepage = () => {
         // Optionally, you can redirect or update state here
 
         setProductData({
+          mercahntid: 'adminupload',
           producttype: '',
           productname: '',
           productimage: '',
