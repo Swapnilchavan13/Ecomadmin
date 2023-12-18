@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/allproducts.css'
+import '../styles/allproducts.css';
 
 export const Allproducts = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedType, setSelectedType] = useState('All');
+  const [merchantNames, setMerchantNames] = useState([]);
+  const [selectedMerchant, setSelectedMerchant] = useState('All');
 
   useEffect(() => {
-    // Fetch data from the API
-    fetch('http://62.72.59.146:3008/allproducts')
+    // Fetch data for merchant names from the API
+    fetch('http://localhost:3008/allmerchants')
       .then(response => response.json())
-      .then(data => setProducts(data))
-      .catch(error => console.error('Error fetching products:', error));
+      .then(data => setMerchantNames(data))
+      .catch(error => console.error('Error fetching merchant names:', error));
   }, []);
+
+  useEffect(() => {
+    // Fetch data for products based on the selected merchant
+    if (selectedMerchant === 'All') {
+      fetch('http://localhost:3008/allproducts')
+        .then(response => response.json())
+        .then(data => setProducts(data))
+        .catch(error => console.error('Error fetching products:', error));
+    } else {
+      fetch(`http://localhost:3008/allproducts/${selectedMerchant}`)
+        .then(response => response.json())
+        .then(data => setProducts(data))
+        .catch(error => console.error('Error fetching products by merchant:', error));
+    }
+  }, [selectedMerchant]);
 
   useEffect(() => {
     // Apply filtering when the selected type changes
@@ -45,6 +62,20 @@ export const Allproducts = () => {
     <>
       <h2 className="product-list-title">All Products</h2>
       <div className="filter-container">
+        <label htmlFor="merchantFilter">Filter by Merchant:</label>
+        <select
+          id="merchantFilter"
+          value={selectedMerchant}
+          onChange={(e) => setSelectedMerchant(e.target.value)}
+        >
+          <option value="All">All Merchants</option>
+          {merchantNames.map(merchant => (
+            <option key={merchant._id} value={merchant._id}>
+              {merchant.businessName}
+            </option>
+          ))}
+        </select>
+
         <label htmlFor="productTypeFilter">Filter by Type:</label>
         <select
           id="productTypeFilter"
