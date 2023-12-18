@@ -70,7 +70,8 @@ export const Allproducts = () => {
         >
           <option value="All">All Merchants</option>
           {merchantNames.map(merchant => (
-            <option key={merchant._id} value={merchant._id}>
+           
+           <option key={merchant._id} value={merchant._id}>
               {merchant.businessName}
             </option>
           ))}
