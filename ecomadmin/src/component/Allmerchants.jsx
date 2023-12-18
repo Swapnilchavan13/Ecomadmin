@@ -35,26 +35,26 @@ export const Allmerchants = () => {
   };
 
   return (
-        <>
-        <h1>All Merchants</h1>
+    <>
+      <h1>All Merchants</h1>
       <div className="all-merchants-container">
-      {merchants.map((merchant) => (
+        {merchants.map((merchant) => (
           <div key={merchant._id} className="merchant-details">
-          <h5>Business Name: {merchant.businessName}</h5>
-          <p>Business Type: {merchant.businessType}</p>
-          <p>Location: {merchant.loaction}</p>
-          <p>Business Address: {merchant.businessAddress}</p>
-          <p>Business Phone: {merchant.businessPhone}</p>
-          <p>Business Email: {merchant.businessEmail}</p>
-          <p>Owner Name: {merchant.ownerName}</p>
-          <p>Owner Phone: {merchant.ownerPhone}</p>
-          <button className="delete-button" onClick={() => handleDelete(merchant._id)}>
-            Delete
-          </button>
-          <hr />
-        </div>
-      ))}
-    </div>
-        </>
+            <h5>Business Name: {merchant.businessName}</h5>
+            <p>Business Type: {merchant.businessType}</p>
+            <p>Location: {merchant.loaction}</p>
+            <p>Business Address: {merchant.businessAddress}</p>
+            <p>Business Phone: {merchant.businessPhone}</p>
+            <p>Business Email: {merchant.businessEmail}</p>
+            <p>Owner Name: {merchant.ownerName}</p>
+            <p>Owner Phone: {merchant.ownerPhone}</p>
+            <button className="delete-button" onClick={() => handleDelete(merchant._id)}>
+              Delete
+            </button>
+            <hr />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
