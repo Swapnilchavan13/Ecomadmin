@@ -10,7 +10,7 @@ export const Allproducts = () => {
 
   useEffect(() => {
     // Fetch data for merchant names from the API
-    fetch('http://localhost:3008/allmerchants')
+    fetch('http://62.72.59.146:3008/allmerchants')
       .then(response => response.json())
       .then(data => setMerchantNames(data))
       .catch(error => console.error('Error fetching merchant names:', error));
@@ -19,12 +19,12 @@ export const Allproducts = () => {
   useEffect(() => {
     // Fetch data for products based on the selected merchant
     if (selectedMerchant === 'All') {
-      fetch('http://localhost:3008/allproducts')
+      fetch('http://62.72.59.146:3008/allproducts')
         .then(response => response.json())
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products:', error));
     } else {
-      fetch(`http://localhost:3008/allproducts/${selectedMerchant}`)
+      fetch(`http://62.72.59.146:3008/allproducts/${selectedMerchant}`)
         .then(response => response.json())
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products by merchant:', error));

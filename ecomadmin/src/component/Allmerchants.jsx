@@ -1,5 +1,3 @@
-// Allmerchants.jsx
-
 import React, { useState, useEffect } from 'react';
 import '../styles/allmerchants.css'; // Import the SCSS file
 
@@ -9,7 +7,7 @@ export const Allmerchants = () => {
   useEffect(() => {
     const fetchMerchants = async () => {
       try {
-        const response = await fetch('http://localhost:3008/allmerchants');
+        const response = await fetch('http://62.72.59.146:3008/allmerchants');
         const merchantsData = await response.json();
         setMerchants(merchantsData);
       } catch (error) {
@@ -22,7 +20,7 @@ export const Allmerchants = () => {
 
   const handleDelete = async (merchantId) => {
     try {
-      await fetch(`http://localhost:3008/allmerchants/${merchantId}`, {
+      await fetch(`http://62.72.59.146:3008/allmerchants/${merchantId}`, {
         method: 'DELETE',
       });
 

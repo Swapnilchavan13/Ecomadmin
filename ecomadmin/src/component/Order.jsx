@@ -12,17 +12,17 @@ export const Order = () => {
     const fetchData = async () => {
       try {
         // Fetch orders data
-        const ordersResponse = await fetch('http://localhost:3008/allorders');
+        const ordersResponse = await fetch('http://62.72.59.146:3008/allorders');
         const ordersData = await ordersResponse.json();
         setOrders(ordersData);
 
         // Fetch users data
-        const usersResponse = await fetch('http://localhost:3008/allusers');
+        const usersResponse = await fetch('http://62.72.59.146:3008/allusers');
         const usersData = await usersResponse.json();
         setUsers(usersData);
 
         // Fetch merchants data
-        const merchantsResponse = await fetch('http://localhost:3008/allmerchants');
+        const merchantsResponse = await fetch('http://62.72.59.146:3008/allmerchants');
         const merchantsData = await merchantsResponse.json();
         console.log(merchantsData)
         setMerchants(merchantsData);
