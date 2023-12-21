@@ -45,7 +45,6 @@ export const Order = () => {
   };
 
 
-
   const handleDelete = async (orderId) => {
     try {
       await fetch(`http://62.72.59.146:3008/allorders/${orderId}`, {
