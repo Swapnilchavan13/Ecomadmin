@@ -5,7 +5,7 @@ export const AllUsers = () => {
   const [userdata, setUserdata] = useState([])
 
   useEffect(() => {
-    fetch('http://62.72.59.146:3008/userdata')
+    fetch('http://localhost:3008/userdata')
       .then(res => res.json())
       .then(data => setUserdata(data))
       .catch(error => console.error('Error Fetching User Data', error))

@@ -10,7 +10,7 @@ export const Allproducts = () => {
 
   useEffect(() => {
     // Fetch data for merchant names from the API
-    fetch('http://62.72.59.146:3008/allmerchants')
+    fetch('http://localhost:3008/allmerchants')
       .then(response => response.json())
       .then(data => setMerchantNames(data))
       .catch(error => console.error('Error fetching merchant names:', error));
@@ -19,12 +19,12 @@ export const Allproducts = () => {
   useEffect(() => {
     // Fetch data for products based on the selected merchant
     if (selectedMerchant === 'All') {
-      fetch('http://62.72.59.146:3008/allproducts')
+      fetch('http://localhost:3008/allproducts')
         .then(response => response.json())
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products:', error));
     } else {
-      fetch(`http://62.72.59.146:3008/allproducts/${selectedMerchant}`)
+      fetch(`http://localhost:3008/allproducts/${selectedMerchant}`)
         .then(response => response.json())
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products by merchant:', error));
@@ -42,7 +42,7 @@ export const Allproducts = () => {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://62.72.59.146:3008/deleteproduct/${productId}`, {
+      const response = await fetch(`http://localhost:3008/deleteproduct/${productId}`, {
         method: 'DELETE',
       });
 

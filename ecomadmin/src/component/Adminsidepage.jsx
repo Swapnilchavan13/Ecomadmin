@@ -10,15 +10,23 @@ export const Adminsidepage = () => {
     productprice: '',
     productdiscount: '',
     productquantity: '',
+    productdescription: '',
+    productdeliveryDate: '',
+    productoffer: '',
+    productblock: false, // Assuming block is a boolean value
   });
 
   const productTypes = ['Electronics', 'Clothing', 'Books', 'Toys', 'Furniture', 'Other'];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+    
+    // If the input is a checkbox, handle the checked property
+    const newValue = type === 'checkbox' ? checked : value;
+
     setProductData({
       ...productData,
-      [name]: value,
+      [name]: newValue,
     });
   };
 
@@ -26,7 +34,7 @@ export const Adminsidepage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://62.72.59.146:3008/addproduct', {
+      const response = await fetch('http://localhost:3008/addproduct', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,6 +54,10 @@ export const Adminsidepage = () => {
           productprice: '',
           productdiscount: '',
           productquantity: '',
+          productdescription: '',
+          productdeliveryDate: '',
+          productoffer: '',
+          productblock: false,
         });
 
       } else {
@@ -135,6 +147,42 @@ export const Adminsidepage = () => {
             onChange={handleChange}
           />
         </label>
+
+        <label className="form-label">
+          Description:
+          <textarea
+            className="form-input"
+            placeholder="Enter Product Description"
+            name="productdescription"
+            value={productData.productdescription}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label className="form-label">
+          Delivery Date:
+          <input
+            className="form-input"
+            type="number"
+            name="productdeliveryDate"
+            placeholder='Delivery in Days'
+            value={productData.productdeliveryDate}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label className="form-label">
+          Offer:
+          <input
+            className="form-input"
+            placeholder="Enter Product Offer"
+            type="text"
+            name="productoffer"
+            value={productData.productoffer}
+            onChange={handleChange}
+          />
+        </label>
+
         <button className="form-button" type="submit">Add Product</button>
       </form>
     </div>
