@@ -139,10 +139,8 @@ export const Adminsidepage = () => {
                 onChange={handleChange}
               />
             </label>
-            {/* Add more fields specific to Furniture */}
           </>
         );
-      // Add cases for other product types as needed
       default:
         return null;
     }
