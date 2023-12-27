@@ -13,15 +13,21 @@ export const Adminsidepage = () => {
     productdescription: '',
     productdeliveryDate: '',
     productoffer: '',
-    productblock: false, // Assuming block is a boolean value
+    productblock: false,
+
+    brand: '', // for Electronics
+    storage: '', // for Electronics
+    operatingSystem: '', // for Electronics
+    cellularTechnology: '', // for Electronics
+    size: '', // for Clothing and Shoes
+    color: '', // for Clothing, Cosmetics, Shoes
+    material: '', // for Clothing, Furniture
   });
 
-  const productTypes = ['Electronics', 'Clothing', 'Books', 'Toys', 'Furniture', 'Other'];
+  const productTypes = ['Electronics', 'Clothing', 'Toys', 'Cosmetics', 'Shoes', 'Other'];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
-    // If the input is a checkbox, handle the checked property
     const newValue = type === 'checkbox' ? checked : value;
 
     setProductData({
@@ -30,6 +36,117 @@ export const Adminsidepage = () => {
     });
   };
 
+  const renderAdditionalFields = () => {
+    switch (productData.producttype) {
+      case 'Electronics':
+        return (
+          <>
+            <label className="form-label">
+              Brand:
+              <input
+                className="form-input"
+                type="text"
+                name="brand"
+                value={productData.brand}
+                onChange={handleChange}
+              />
+            </label>
+            <label className="form-label">
+              Storage:
+              <input
+                className="form-input"
+                type="text"
+                name="storage"
+                value={productData.storage}
+                onChange={handleChange}
+              />
+            </label>
+            <label className="form-label">
+              Operating System:
+              <input
+                className="form-input"
+                type="text"
+                name="operatingSystem"
+                value={productData.operatingSystem}
+                onChange={handleChange}
+              />
+            </label>
+            <label className="form-label">
+              Cellular Technology:
+              <input
+                className="form-input"
+                type="text"
+                name="cellularTechnology"
+                value={productData.cellularTechnology}
+                onChange={handleChange}
+              />
+            </label>
+          </>
+        );
+      case 'Clothing':
+      case 'Shoes':
+        return (
+          <>
+            <label className="form-label">
+              Size:
+              <input
+                className="form-input"
+                type="text"
+                name="size"
+                value={productData.size}
+                onChange={handleChange}
+              />
+            </label>
+            <label className="form-label">
+              Color:
+              <input
+                className="form-input"
+                type="text"
+                name="color"
+                value={productData.color}
+                onChange={handleChange}
+              />
+            </label>
+            {/* Add more fields specific to Clothing and Shoes */}
+          </>
+        );
+      case 'Cosmetics':
+        return (
+          <>
+            <label className="form-label">
+              Color:
+              <input
+                className="form-input"
+                type="text"
+                name="color"
+                value={productData.color}
+                onChange={handleChange}
+              />
+            </label>
+            {/* Add more fields specific to Cosmetics */}
+          </>
+        );
+      case 'Furniture':
+        return (
+          <>
+            <label className="form-label">
+              Material:
+              <input
+                className="form-input"
+                type="text"
+                name="material"
+                value={productData.material}
+                onChange={handleChange}
+              />
+            </label>
+            {/* Add more fields specific to Furniture */}
+          </>
+        );
+      // Add cases for other product types as needed
+      default:
+        return null;
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -54,6 +171,7 @@ export const Adminsidepage = () => {
           productprice: '',
           productdiscount: '',
           productquantity: '',
+          
           productdescription: '',
           productdeliveryDate: '',
           productoffer: '',
@@ -63,7 +181,6 @@ export const Adminsidepage = () => {
       } else {
         console.error('Failed to add product');
       }
-      
     } catch (error) {
       console.error('Error adding product:', error);
     }
@@ -182,6 +299,9 @@ export const Adminsidepage = () => {
             onChange={handleChange}
           />
         </label>
+
+
+        {renderAdditionalFields()}
 
         <button className="form-button" type="submit">Add Product</button>
       </form>
