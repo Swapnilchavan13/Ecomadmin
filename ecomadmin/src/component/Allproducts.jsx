@@ -96,7 +96,7 @@ export const Allproducts = () => {
       <div className="product-list-container">
         {filteredProducts.map(product => (
           <div key={product._id} className="product-card">
-            <img src={product.productimage} alt={product.productname} className="product-image" />
+            <img src={product.image_one} alt={product.productname} className="product-image" />
             <div className="product-details">
               <p className="product-name">Name: {product.productname}</p>
               <p className="product-info">Type: {product.producttype}</p>

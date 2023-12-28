@@ -65,15 +65,24 @@ export const Adminsidepage = () => {
 
 
 
+  const storedData= localStorage.getItem('uploadedData') || []
+  const allimgnvid = JSON.parse(storedData);
 
 
+  console.log(allimgnvid.image_one)
 
   
   const [productData, setProductData] = useState({
     mercahntid: 'adminupload',
     producttype: '',
     productname: '',
-    productimage: '',
+    image_one: allimgnvid.image_one,
+    image_two: allimgnvid.image_two,
+    image_three: allimgnvid.image_three,
+    image_four: allimgnvid.image_four,
+    image_five: allimgnvid.image_five,
+    video_one: allimgnvid.video_one,
+    video_two: allimgnvid.video_two,
     productprice: '',
     productdiscount: '',
     productquantity: '',
@@ -110,14 +119,13 @@ export const Adminsidepage = () => {
           <>
             <label className="form-label">
               Brand:
+              <input
                 className="form-input"
                 type="text"
                 name="brand"
                 value={productData.brand}
-              Cellular Technology:
                 onChange={handleChange}
-              <input
-              />
+                />
             </label>
             <label className="form-label">
               Storage:
@@ -127,7 +135,7 @@ export const Adminsidepage = () => {
                 name="storage"
                 value={productData.storage}
                 onChange={handleChange}
-              />
+                />
             </label>
             <label className="form-label">
               Operating System:
@@ -137,9 +145,10 @@ export const Adminsidepage = () => {
                 name="operatingSystem"
                 value={productData.operatingSystem}
                 onChange={handleChange}
-              />
+                />
             </label>
             <label className="form-label">
+                Cellular Technology:
               <input
                 className="form-input"
                 type="text"
@@ -236,6 +245,14 @@ export const Adminsidepage = () => {
           productprice: '',
           productdiscount: '',
           productquantity: '',
+
+          image_one: allimgnvid.image_one,
+          image_two: allimgnvid.image_two,
+          image_three: allimgnvid.image_three,
+          image_four: allimgnvid.image_four,
+          image_five: allimgnvid.image_five,
+          video_one: allimgnvid.video_one,
+          video_two: allimgnvid.video_two,
           
           productdescription: '',
           productdeliveryDate: '',
