@@ -41,12 +41,22 @@ export const Adminsidepage = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       const data = await response.json();
       console.log(data); // Handle the response as needed
+
+      localStorage.setItem('uploadedData', JSON.stringify(data));
+
+
     } catch (error) {
       console.error('Error uploading data:', error);
     }
+  };
+
+  const renderImagePreview = (imageField) => {
+    if (formData[imageField]) {
+      return <img src={URL.createObjectURL(formData[imageField])} alt="Preview" width="100" />;
+    }
+    return null;
   };
 
  
@@ -271,41 +281,37 @@ export const Adminsidepage = () => {
             onChange={handleChange}
           />
         </label>
-
-
-
-        <div>
+      
+      <div>
       <h1>Upload Data</h1>
-      {/* Image uploads */}
       <h2>Images of Products</h2>
       <input type="file" onChange={(e) => handleFileChange(e, 'image_one')} />
+      {renderImagePreview('image_one')}
+
       <input type="file" onChange={(e) => handleFileChange(e, 'image_two')} />
+      {renderImagePreview('image_two')}
+
       <input type="file" onChange={(e) => handleFileChange(e, 'image_three')} />
+      {renderImagePreview('image_three')}
+
       <input type="file" onChange={(e) => handleFileChange(e, 'image_four')} />
+      {renderImagePreview('image_four')}
+
       <input type="file" onChange={(e) => handleFileChange(e, 'image_five')} />
+      {renderImagePreview('image_five')}
 
 
-      {/* Repeat the above line for other image file inputs */}
-
-      <h2>Video of Products</h2>
-      {/* Video uploads */}
+      <h2>Videos of Products</h2>
       <input type="file" onChange={(e) => handleFileChange(e, 'video_one')} />
       <input type="file" onChange={(e) => handleFileChange(e, 'video_two')} />
-      <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} />
-      <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} />
-      <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} />
+      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} /> */}
+      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} /> */}
+      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} /> */}
 
-      {/* Repeat the above line for other video file inputs */}
-      
       <button onClick={handleSubmitimg}>Upload Data</button>
     </div>
 
-
-
-
-     
-
-        <label className="form-label">
+    <label className="form-label">
           Product Image:
           <input
             className="form-input"
