@@ -2,6 +2,63 @@ import React, { useState } from 'react';
 import '../styles/adminsidepage.css';
 
 export const Adminsidepage = () => {
+
+  const [formData, setFormData] = useState({
+    image_one: null,
+    image_two: null,
+    image_three: null,
+    image_four: null,
+    image_five: null,
+    video_one: null,
+    video_two: null,
+    video_three: null,
+    video_four: null,
+    video_five: null,
+  });
+
+  const handleFileChange = (event, field) => {
+    const file = event.target.files[0];
+    setFormData({ ...formData, [field]: file });
+  };
+
+  const handleSubmitimg = async (event) => {
+    event.preventDefault();
+    const apiUrl = 'http://62.72.59.146:8001/productimage/';
+
+    try {
+      const formDataToSend = new FormData();
+      for (const key in formData) {
+        if (formData[key]) {
+          formDataToSend.append(key, formData[key]);
+        }
+      }
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data); // Handle the response as needed
+    } catch (error) {
+      console.error('Error uploading data:', error);
+    }
+  };
+
+ 
+
+
+
+
+
+
+
+
+  
   const [productData, setProductData] = useState({
     mercahntid: 'adminupload',
     producttype: '',
@@ -43,12 +100,13 @@ export const Adminsidepage = () => {
           <>
             <label className="form-label">
               Brand:
-              <input
                 className="form-input"
                 type="text"
                 name="brand"
                 value={productData.brand}
+              Cellular Technology:
                 onChange={handleChange}
+              <input
               />
             </label>
             <label className="form-label">
@@ -72,7 +130,6 @@ export const Adminsidepage = () => {
               />
             </label>
             <label className="form-label">
-              Cellular Technology:
               <input
                 className="form-input"
                 type="text"
@@ -214,6 +271,39 @@ export const Adminsidepage = () => {
             onChange={handleChange}
           />
         </label>
+
+
+
+        <div>
+      <h1>Upload Data</h1>
+      {/* Image uploads */}
+      <h2>Images of Products</h2>
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_one')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_two')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_three')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_four')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_five')} />
+
+
+      {/* Repeat the above line for other image file inputs */}
+
+      <h2>Video of Products</h2>
+      {/* Video uploads */}
+      <input type="file" onChange={(e) => handleFileChange(e, 'video_one')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'video_two')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} />
+      <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} />
+
+      {/* Repeat the above line for other video file inputs */}
+      
+      <button onClick={handleSubmitimg}>Upload Data</button>
+    </div>
+
+
+
+
+     
 
         <label className="form-label">
           Product Image:
