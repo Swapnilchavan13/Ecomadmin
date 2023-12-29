@@ -58,6 +58,33 @@ export const Allproducts = () => {
     }
   };
 
+
+   // New function to handle toggling 'blok' status
+   const handleToggleBlok = async (productId, currentBlokStatus) => {
+    try {
+      // Make a PATCH request to update 'block' status
+      const response = await fetch(`http://localhost:3008/updateproductblock/${productId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productblock: !currentBlokStatus }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Update the state to reflect the changes
+      setFilteredProducts(filteredProducts.map(product => 
+        product._id === productId ? { ...product, productblock: !currentBlokStatus } : product
+      ));
+    } catch (error) {
+      console.error('Error updating product block status:', error);
+    }
+  };
+
+
   return (
     <>
       <h2 className="product-list-title">All Products</h2>
@@ -106,6 +133,14 @@ export const Allproducts = () => {
               <button className="delete-button" onClick={() => handleDelete(product._id)}>
                 Delete
               </button>
+
+              <p className="product-blok">Status: {product.productblock ? 'Blocked' : 'Unblocked'}</p>
+            <button
+              className="toggle-blok-button"
+              onClick={() => handleToggleBlok(product._id, product.productblock)}
+            >
+              Toggle Block
+            </button>
             </div>
           </div>
         ))}

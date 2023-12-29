@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/adminsidepage.css';
 
 export const Adminsidepage = () => {
 
+  const [uploadCompleted, setUploadCompleted] = useState(false);
+
+  useEffect(() => {
+    const uploadStatus = localStorage.getItem('uploadCompleted') === 'true';
+    setUploadCompleted(uploadStatus);
+  }, []);
+
+
   const [formData, setFormData] = useState({
-    image_one: null,
-    image_two: null,
-    image_three: null,
-    image_four: null,
-    image_five: null,
-    video_one: null,
-    video_two: null,
-    video_three: null,
-    video_four: null,
-    video_five: null,
+    image_one: '',
+    image_two: '',
+    image_three: '',
+    image_four: '',
+    image_five: '',
+    video_one: '',
+    video_two: '',
+    video_three: '',
+    video_four: '',
+    video_five: '',
   });
 
   const handleFileChange = (event, field) => {
@@ -38,18 +46,29 @@ export const Adminsidepage = () => {
         body: formDataToSend,
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
       const data = await response.json();
-      console.log(data); // Handle the response as needed
 
-      localStorage.setItem('uploadedData', JSON.stringify(data));
+if (response.ok) {
+  console.log(data);
+  localStorage.setItem('uploadedData', JSON.stringify(data));
+  alert("Product Images Added")
+  
+  localStorage.setItem('uploadCompleted', 'true'); // Save upload status to local storage
+  window.location.reload();
 
+} else {
+  console.error('Error response from server:', data);
+  alert("Product Images Not uploaded Refresh the page")
+}
+
+if (!response.ok) {
+  throw new Error(`HTTP error! Status: ${response.status}`);
+}
 
     } catch (error) {
       console.error('Error uploading data:', error);
     }
+
   };
 
   const renderImagePreview = (imageField) => {
@@ -59,18 +78,9 @@ export const Adminsidepage = () => {
     return null;
   };
 
- 
-
-
-
-
-
-  const storedData= localStorage.getItem('uploadedData') || []
+  const storedData = localStorage.getItem('uploadedData') || [];
   const allimgnvid = JSON.parse(storedData);
-
-
-  console.log(allimgnvid.image_one)
-
+  console.log(allimgnvid.image_one);
   
   const [productData, setProductData] = useState({
     mercahntid: 'adminupload',
@@ -260,6 +270,10 @@ export const Adminsidepage = () => {
           productblock: false,
         });
 
+        localStorage.setItem('uploadCompleted', 'false'); // Reset upload status to local storage
+        setUploadCompleted(false);
+        window.location.reload();
+
       } else {
         console.error('Failed to add product');
       }
@@ -271,6 +285,49 @@ export const Adminsidepage = () => {
   return (
     <div className="admin-container">
       <h2 className="form-title">Add Product</h2>
+
+      <div>
+      <h1>Upload Data</h1>
+      <h2>Images of Products</h2>
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_one')} />
+      {renderImagePreview('image_one')}
+      <br />
+
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_two')} />
+      {renderImagePreview('image_two')}
+      <br />
+
+
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_three')} />
+      {renderImagePreview('image_three')}
+      <br />
+
+
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_four')} />
+      {renderImagePreview('image_four')}
+      <br />
+
+      <input type="file" onChange={(e) => handleFileChange(e, 'image_five')} />
+      {renderImagePreview('image_five')}
+      <br />
+
+      <h2>Videos of Products</h2>
+      <input type="file" onChange={(e) => handleFileChange(e, 'video_one')} />
+      <br />
+
+      <input type="file" onChange={(e) => handleFileChange(e, 'video_two')} />
+      <br />
+
+      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} /> */}
+      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} /> */}
+      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} /> */}
+
+      <button onClick={handleSubmitimg}>Upload Data</button>
+    </div>
+
+
+    {uploadCompleted && (
+
       <form className="product-form" onSubmit={handleSubmit}>
         <label className="form-label">
           Product Type:
@@ -299,34 +356,6 @@ export const Adminsidepage = () => {
           />
         </label>
       
-      <div>
-      <h1>Upload Data</h1>
-      <h2>Images of Products</h2>
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_one')} />
-      {renderImagePreview('image_one')}
-
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_two')} />
-      {renderImagePreview('image_two')}
-
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_three')} />
-      {renderImagePreview('image_three')}
-
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_four')} />
-      {renderImagePreview('image_four')}
-
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_five')} />
-      {renderImagePreview('image_five')}
-
-
-      <h2>Videos of Products</h2>
-      <input type="file" onChange={(e) => handleFileChange(e, 'video_one')} />
-      <input type="file" onChange={(e) => handleFileChange(e, 'video_two')} />
-      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} /> */}
-      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} /> */}
-      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} /> */}
-
-      <button onClick={handleSubmitimg}>Upload Data</button>
-    </div>
 
     <label className="form-label">
           Product Image:
@@ -416,6 +445,8 @@ export const Adminsidepage = () => {
 
         <button className="form-button" type="submit">Add Product</button>
       </form>
+          )}
+
     </div>
   );
 };
