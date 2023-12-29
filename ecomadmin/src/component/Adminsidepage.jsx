@@ -48,22 +48,22 @@ export const Adminsidepage = () => {
 
       const data = await response.json();
 
-if (response.ok) {
-  console.log(data);
-  localStorage.setItem('uploadedData', JSON.stringify(data));
-  alert("Product Images Added")
-  
-  localStorage.setItem('uploadCompleted', 'true'); // Save upload status to local storage
-  window.location.reload();
+      if (response.ok) {
+        console.log(data);
+        localStorage.setItem('uploadedData', JSON.stringify(data));
+        alert("Product Images Added")
 
-} else {
-  console.error('Error response from server:', data);
-  alert("Product Images Not uploaded Refresh the page")
-}
+        localStorage.setItem('uploadCompleted', 'true'); // Save upload status to local storage
+        window.location.reload();
 
-if (!response.ok) {
-  throw new Error(`HTTP error! Status: ${response.status}`);
-}
+      } else {
+        console.error('Error response from server:', data);
+        alert("Product Images Not uploaded Refresh the page")
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
     } catch (error) {
       console.error('Error uploading data:', error);
@@ -81,7 +81,7 @@ if (!response.ok) {
   const storedData = localStorage.getItem('uploadedData') || [];
   const allimgnvid = JSON.parse(storedData);
   console.log(allimgnvid.image_one);
-  
+
   const [productData, setProductData] = useState({
     mercahntid: 'adminupload',
     producttype: '',
@@ -135,7 +135,7 @@ if (!response.ok) {
                 name="brand"
                 value={productData.brand}
                 onChange={handleChange}
-                />
+              />
             </label>
             <label className="form-label">
               Storage:
@@ -145,7 +145,7 @@ if (!response.ok) {
                 name="storage"
                 value={productData.storage}
                 onChange={handleChange}
-                />
+              />
             </label>
             <label className="form-label">
               Operating System:
@@ -155,10 +155,10 @@ if (!response.ok) {
                 name="operatingSystem"
                 value={productData.operatingSystem}
                 onChange={handleChange}
-                />
+              />
             </label>
             <label className="form-label">
-                Cellular Technology:
+              Cellular Technology:
               <input
                 className="form-input"
                 type="text"
@@ -263,7 +263,7 @@ if (!response.ok) {
           image_five: allimgnvid.image_five,
           video_one: allimgnvid.video_one,
           video_two: allimgnvid.video_two,
-          
+
           productdescription: '',
           productdeliveryDate: '',
           productoffer: '',
@@ -283,186 +283,184 @@ if (!response.ok) {
   };
 
   return (
-    
+
     <div className="admin-container">
       <h2 className="form-title">Add Product</h2>
 
       <div className="upload-section">
-      <h1 className="upload-title">Upload Data</h1>
+        <h1 className="upload-title">Upload Data</h1>
 
-      <div className="upload-images">
+        <div className="upload-images">
+          <h2>Images of Products</h2>
+          <div className="file-upload">
 
-      <h2>Images of Products</h2>
+            <input type="file" onChange={(e) => handleFileChange(e, 'image_one')} />
+            {renderImagePreview('image_one')}
+            <br />
 
-      <div className="file-upload">
-
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_one')} />
-      {renderImagePreview('image_one')}
-      <br />
-
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_two')} />
-      {renderImagePreview('image_two')}
-      <br />
+            <input type="file" onChange={(e) => handleFileChange(e, 'image_two')} />
+            {renderImagePreview('image_two')}
+            <br />
 
 
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_three')} />
-      {renderImagePreview('image_three')}
-      <br />
+            <input type="file" onChange={(e) => handleFileChange(e, 'image_three')} />
+            {renderImagePreview('image_three')}
+            <br />
 
 
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_four')} />
-      {renderImagePreview('image_four')}
-      <br />
+            <input type="file" onChange={(e) => handleFileChange(e, 'image_four')} />
+            {renderImagePreview('image_four')}
+            <br />
 
-      <input type="file" onChange={(e) => handleFileChange(e, 'image_five')} />
-      {renderImagePreview('image_five')}
-      <br />
+            <input type="file" onChange={(e) => handleFileChange(e, 'image_five')} />
+            {renderImagePreview('image_five')}
+            <br />
+          </div>
+        </div>
+
+
+        <div className="upload-videos">
+
+          <h2>Videos of Products</h2>
+          <div className="file-upload">
+
+            <input type="file" onChange={(e) => handleFileChange(e, 'video_one')} />
+            <br />
+
+            <input type="file" onChange={(e) => handleFileChange(e, 'video_two')} />
+            <br />
+
+          </div>
+        </div>
+
+        {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} /> */}
+        {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} /> */}
+        {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} /> */}
+
+        <button className="upload-button" onClick={handleSubmitimg}>Upload Data</button>
       </div>
-      </div>
 
 
-      <div className="upload-videos">
+      {uploadCompleted && (
 
-      <h2>Videos of Products</h2>
-      <div className="file-upload">
+        <form className="product-form" onSubmit={handleSubmit}>
+          <label className="form-label">
+            Product Type:
+            <select
+              className="form-input"
+              name="producttype"
+              value={productData.producttype}
+              onChange={handleChange}
+            >
+              <option value="" disabled>Select a product type</option>
+              {productTypes.map((type) => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          </label>
 
-      <input type="file" onChange={(e) => handleFileChange(e, 'video_one')} />
-      <br />
-
-      <input type="file" onChange={(e) => handleFileChange(e, 'video_two')} />
-      <br />
-
-      </div>
-      </div>
-
-      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} /> */}
-      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} /> */}
-      {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} /> */}
-
-      <button className="upload-button" onClick={handleSubmitimg}>Upload Data</button>
-    </div>
-
-
-    {uploadCompleted && (
-
-      <form className="product-form" onSubmit={handleSubmit}>
-        <label className="form-label">
-          Product Type:
-          <select
-            className="form-input"
-            name="producttype"
-            value={productData.producttype}
-            onChange={handleChange}
-          >
-            <option value="" disabled>Select a product type</option>
-            {productTypes.map((type) => (
-              <option key={type} value={type}>{type}</option>
-            ))}
-          </select>
-        </label>
-
-        <label className="form-label">
-          Product Name:
-          <input
-            className="form-input"
-            placeholder="Enter Product Name"
-            type="text"
-            name="productname"
-            value={productData.productname}
-            onChange={handleChange}
-          />
-        </label>
-      
-
-    <label className="form-label">
-          Product Image:
-          <input
-            className="form-input"
-            placeholder="Enter Product Image"
-            type="text"
-            name="productimage"
-            value={productData.productimage}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className="form-label">
-          Product Price:
-          <input
-            className="form-input"
-            placeholder="Enter Product Price"
-            type="text"
-            name="productprice"
-            value={productData.productprice}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className="form-label">
-          Product Discount:
-          <input
-            className="form-input"
-            placeholder="Enter Product Discount"
-            type="text"
-            name="productdiscount"
-            value={productData.productdiscount}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className="form-label">
-          Product Quantity:
-          <input
-            className="form-input"
-            placeholder="Enter Product Quantity"
-            type="text"
-            name="productquantity"
-            value={productData.productquantity}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className="form-label">
-          Description:
-          <textarea
-            className="form-input"
-            placeholder="Enter Product Description"
-            name="productdescription"
-            value={productData.productdescription}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className="form-label">
-          Delivery Date:
-          <input
-            className="form-input"
-            type="number"
-            name="productdeliveryDate"
-            placeholder='Delivery in Days'
-            value={productData.productdeliveryDate}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className="form-label">
-          Offer:
-          <input
-            className="form-input"
-            placeholder="Enter Product Offer"
-            type="text"
-            name="productoffer"
-            value={productData.productoffer}
-            onChange={handleChange}
-          />
-        </label>
+          <label className="form-label">
+            Product Name:
+            <input
+              className="form-input"
+              placeholder="Enter Product Name"
+              type="text"
+              name="productname"
+              value={productData.productname}
+              onChange={handleChange}
+            />
+          </label>
 
 
-        {renderAdditionalFields()}
+          <label className="form-label">
+            Product Image:
+            <input
+              className="form-input"
+              placeholder="Enter Product Image"
+              type="text"
+              name="productimage"
+              value={productData.productimage}
+              onChange={handleChange}
+            />
+          </label>
 
-        <button className="form-button" type="submit">Add Product</button>
-      </form>
-          )}
+          <label className="form-label">
+            Product Price:
+            <input
+              className="form-input"
+              placeholder="Enter Product Price"
+              type="text"
+              name="productprice"
+              value={productData.productprice}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label className="form-label">
+            Product Discount:
+            <input
+              className="form-input"
+              placeholder="Enter Product Discount"
+              type="text"
+              name="productdiscount"
+              value={productData.productdiscount}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label className="form-label">
+            Product Quantity:
+            <input
+              className="form-input"
+              placeholder="Enter Product Quantity"
+              type="text"
+              name="productquantity"
+              value={productData.productquantity}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label className="form-label">
+            Description:
+            <textarea
+              className="form-input"
+              placeholder="Enter Product Description"
+              name="productdescription"
+              value={productData.productdescription}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label className="form-label">
+            Delivery Date:
+            <input
+              className="form-input"
+              type="number"
+              name="productdeliveryDate"
+              placeholder='Delivery in Days'
+              value={productData.productdeliveryDate}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label className="form-label">
+            Offer:
+            <input
+              className="form-input"
+              placeholder="Enter Product Offer"
+              type="text"
+              name="productoffer"
+              value={productData.productoffer}
+              onChange={handleChange}
+            />
+          </label>
+
+
+          {renderAdditionalFields()}
+
+          <button className="form-button" type="submit">Add Product</button>
+        </form>
+      )}
 
     </div>
   );
