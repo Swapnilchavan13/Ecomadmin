@@ -122,7 +122,7 @@ export const Allproducts = () => {
       </div>
       <div className="product-list-container">
         {filteredProducts.map(product => (
-          <div key={product._id} className="product-card" style={{ backgroundColor: product.productblock ? '#f68585' : 'white' }} // Conditional background color
+          <div key={product._id} className="product-card" style={{ backgroundColor: product.productblock ? '#f68585' : 'white' }} 
           >
             <img src={product.image_one} alt={product.productname} className="product-image" />
             <div className="product-details">
