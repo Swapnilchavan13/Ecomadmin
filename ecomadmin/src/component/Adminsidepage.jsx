@@ -283,12 +283,19 @@ if (!response.ok) {
   };
 
   return (
+    
     <div className="admin-container">
       <h2 className="form-title">Add Product</h2>
 
-      <div>
-      <h1>Upload Data</h1>
+      <div className="upload-section">
+      <h1 className="upload-title">Upload Data</h1>
+
+      <div className="upload-images">
+
       <h2>Images of Products</h2>
+
+      <div className="file-upload">
+
       <input type="file" onChange={(e) => handleFileChange(e, 'image_one')} />
       {renderImagePreview('image_one')}
       <br />
@@ -310,19 +317,29 @@ if (!response.ok) {
       <input type="file" onChange={(e) => handleFileChange(e, 'image_five')} />
       {renderImagePreview('image_five')}
       <br />
+      </div>
+      </div>
+
+
+      <div className="upload-videos">
 
       <h2>Videos of Products</h2>
+      <div className="file-upload">
+
       <input type="file" onChange={(e) => handleFileChange(e, 'video_one')} />
       <br />
 
       <input type="file" onChange={(e) => handleFileChange(e, 'video_two')} />
       <br />
 
+      </div>
+      </div>
+
       {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_three')} /> */}
       {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_four')} /> */}
       {/* <input type="file" onChange={(e) => handleFileChange(e, 'video_five')} /> */}
 
-      <button onClick={handleSubmitimg}>Upload Data</button>
+      <button className="upload-button" onClick={handleSubmitimg}>Upload Data</button>
     </div>
 
 
