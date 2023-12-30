@@ -17,19 +17,18 @@ export const Allproducts = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch data for products based on the selected merchant
-    if (selectedMerchant === 'All') {
-      fetch('http://localhost:3008/allproducts')
-        .then(response => response.json())
-        .then(data => setProducts(data))
-        .catch(error => console.error('Error fetching products:', error));
-    } else {
-      fetch(`http://localhost:3008/allproducts/${selectedMerchant}`)
-        .then(response => response.json())
-        .then(data => setProducts(data))
-        .catch(error => console.error('Error fetching products by merchant:', error));
-    }
+    fetch(selectedMerchant === 'All' ? 'http://localhost:3008/allproducts' : `http://localhost:3008/allproducts/${selectedMerchant}`)
+      .then(response => response.json())
+      .then(data => {
+        // Check if the response is an array, otherwise set an empty array
+        setProducts(Array.isArray(data) ? data : []);
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+        setProducts([]); // Set to empty array in case of error
+      });
   }, [selectedMerchant]);
+  
 
   useEffect(() => {
     // Apply filtering when the selected type changes
@@ -97,13 +96,12 @@ export const Allproducts = () => {
         >
           <option value="All">All Merchants</option>
           {merchantNames.map(merchant => (
-           
-           <option key={merchant._id} value={merchant._id}>
+            <option key={merchant._id} value={merchant._id}>
               {merchant.businessName}
             </option>
           ))}
         </select>
-
+  
         <label htmlFor="productTypeFilter">Filter by Type:</label>
         <select
           id="productTypeFilter"
@@ -121,31 +119,34 @@ export const Allproducts = () => {
         </select>
       </div>
       <div className="product-list-container">
-        {filteredProducts.map(product => (
-          <div key={product._id} className="product-card" style={{ backgroundColor: product.productblock ? '#f68585' : 'white' }} 
-          >
-            <img src={product.image_one} alt={product.productname} className="product-image" />
-            <div className="product-details">
-              <p className="product-name">Name: {product.productname}</p>
-              <p className="product-info">Type: {product.producttype}</p>
-              <p className="product-info">Price: Rs.{product.productprice}</p>
-              <p className="product-info">Discount: {product.productdiscount}%</p>
-              <p className="product-info">Quantity: {product.productquantity || 'N/A'}</p>
-              <button className="delete-button" onClick={() => handleDelete(product._id)}>
-                Delete
-              </button>
-
-              <p className="product-blok">Status: {product.productblock ? 'Blocked' : 'Unblocked'}</p>
-            <button
-              className="toggle-blok-button"
-              onClick={() => handleToggleBlok(product._id, product.productblock)}
-            >
-              Toggle Block
-            </button>
+        {filteredProducts.length === 0 ? (
+          <p className="no-products-message">No products added for the selected merchant.</p>
+        ) : (
+          filteredProducts.map(product => (
+            <div key={product._id} className="product-card" style={{ backgroundColor: product.productblock ? '#f68585' : 'white' }}>
+              <img src={product.image_one} alt={product.productname} className="product-image" />
+              <div className="product-details">
+                <p className="product-name">Name: {product.productname}</p>
+                <p className="product-info">Type: {product.producttype}</p>
+                <p className="product-info">Price: Rs.{product.productprice}</p>
+                <p className="product-info">Discount: {product.productdiscount}%</p>
+                <p className="product-info">Quantity: {product.productquantity || 'N/A'}</p>
+                <button className="delete-button" onClick={() => handleDelete(product._id)}>
+                  Delete
+                </button>
+  
+                <p className="product-blok">Status: {product.productblock ? 'Blocked' : 'Unblocked'}</p>
+                <button
+                  className="toggle-blok-button"
+                  onClick={() => handleToggleBlok(product._id, product.productblock)}
+                >
+                  Toggle Block
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </>
   );
-};
+}  
