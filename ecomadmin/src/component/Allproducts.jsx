@@ -10,14 +10,14 @@ export const Allproducts = () => {
 
   useEffect(() => {
     // Fetch data for merchant names from the API
-    fetch('http://localhost:3008/allmerchants')
+    fetch('http://62.72.59.146:3008/allmerchants')
       .then(response => response.json())
       .then(data => setMerchantNames(data))
       .catch(error => console.error('Error fetching merchant names:', error));
   }, []);
 
   useEffect(() => {
-    fetch(selectedMerchant === 'All' ? 'http://localhost:3008/allproducts' : `http://localhost:3008/allproducts/${selectedMerchant}`)
+    fetch(selectedMerchant === 'All' ? 'http://62.72.59.146:3008/allproducts' : `http://62.72.59.146:3008/allproducts/${selectedMerchant}`)
       .then(response => response.json())
       .then(data => {
         // Check if the response is an array, otherwise set an empty array
@@ -41,7 +41,7 @@ export const Allproducts = () => {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:3008/deleteproduct/${productId}`, {
+      const response = await fetch(`http://62.72.59.146:3008/deleteproduct/${productId}`, {
         method: 'DELETE',
       });
 
@@ -62,7 +62,7 @@ export const Allproducts = () => {
    const handleToggleBlok = async (productId, currentBlokStatus) => {
     try {
       // Make a PATCH request to update 'block' status
-      const response = await fetch(`http://localhost:3008/updateproductblock/${productId}`, {
+      const response = await fetch(`http://62.72.59.146:3008/updateproductblock/${productId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
