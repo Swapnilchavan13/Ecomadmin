@@ -7,7 +7,6 @@ import { Order } from './component/Order';
 import { AllUsers } from './component/AllUsers';
 import { Allmerchants } from './component/Allmerchants';
 
-
 function App() {
   return (
     <div className="App">
@@ -19,7 +18,6 @@ function App() {
         <Route path="orders" element={<Order />} />
         <Route path="users" element={<AllUsers />} />
         <Route path="merchant" element={<Allmerchants />} />
-
       </Routes>
     </BrowserRouter>
     </div>
